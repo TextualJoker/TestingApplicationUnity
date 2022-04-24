@@ -58,9 +58,9 @@
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/TestingApplicationUnity.loader.js";
       var config = {
-        dataUrl: buildUrl + "/TestingApplicationUnity.data.br",
-        frameworkUrl: buildUrl + "/TestingApplicationUnity.framework.js.br",
-        codeUrl: buildUrl + "/TestingApplicationUnity.wasm.br",
+        dataUrl: buildUrl + "/TestingApplicationUnity.data",
+        frameworkUrl: buildUrl + "/TestingApplicationUnity.framework.js",
+        codeUrl: buildUrl + "/TestingApplicationUnity.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "AurumTestProject",
@@ -86,12 +86,11 @@
 
         // To lower canvas resolution on mobile devices to gain some
         // performance, uncomment the following line:
-        // config.devicePixelRatio = 1;
+        //config.devicePixelRatio = 1;
 
         canvas.style.width = window.innerWidth + 'px';
         canvas.style.height = window.innerHeight + 'px';
 
-        unityShowBanner('WebGL builds are not supported on mobile devices.');
       } else {
         // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
 
@@ -104,6 +103,10 @@
       var script = document.createElement("script");
       script.src = loaderUrl;
       script.onload = () => {
+	  
+	  /// TESTING BLACK SCREEN FIX **************************
+        config['webglContextAttributes'] = {"preserveDrawingBuffer": true}; 
+	  /// ****************************************************
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
